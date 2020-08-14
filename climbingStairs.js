@@ -5,22 +5,11 @@
  */
 
 var climbStairs = function(n) {
-  var counter = 0;
-  var totalSteps = n;
-
-  var countSolutions = function(steps) {
-    if (steps === 0) {
-      counter++;
-    } else if (steps < 0) {
-      return;
-    } else {
-      countSolutions(steps - 1);
-      countSolutions(steps - 2);
-    }
+  var memo = [0, 1, 2];
+  for (var i = 3; i < n + 1; i++) {
+    memo[i] = memo[i - 1] + memo[i - 2];
   }
-
-  countSolutions(totalSteps);
-  return counter;
+  return memo[n];
 };
 
 var result;
@@ -28,4 +17,6 @@ result = climbStairs(2);
 console.assert(result === 2, 'Should return 2 for 2 total steps.');
 result = climbStairs(3);
 console.assert(result === 3, 'Should return 3 for 3 total steps.');
-console.log(climbStairs(45));
+result = climbStairs(45)
+console.log(result);
+console.assert(result === 1836311903, 'Failed for max number');
