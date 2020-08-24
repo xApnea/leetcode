@@ -3,6 +3,7 @@
  * @return {number}
  */
 var numIslands = function(grid) {
+  if (grid.length === 0) {return 0}
   // traverse row
   // once a 1 is hit:
     // increment counter
