@@ -21,6 +21,8 @@ var shortestDistance = function(numRobots, positionX, positionY) {
   var min = Infinity;
   for (var i = 0; i < numRobots; i++) {
     for (var j = 0; j < numRobots; j++) {
+      if (i === j) {break};
+
       const x = positionX[i] - positionX[j]
       const y = positionY[i] - positionY[j]
       const squaredDistance = (x * x) + (y * y);
@@ -31,3 +33,7 @@ var shortestDistance = function(numRobots, positionX, positionY) {
   }
   return min;
 }
+
+var result = shortestDistance(3, [0, 1, 2], [0, 1, 4]);
+console.log(result);
+console.assert(result === 2, 'Expected squared distance of 2');
