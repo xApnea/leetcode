@@ -17,39 +17,39 @@ var numIslands = function(grid) {
 
   var searchAdjacentCells = function(rowIndex, colIndex) {
     // Search North
-    if (rowIndex - 1 > 0 && !coordinates[colIndex + ',' + (rowIndex - 1)]) {
-      if (grid[rowIndex - 1][colIndex] === '1') {
-        var newIndex = rowIndex - 1
-        var xy = colIndex + ',' + newIndex;
+    var newIndex = rowIndex - 1
+    if (newIndex >= 0 && !coordinates[newIndex + ',' + colIndex]) {
+      if (grid[newIndex][colIndex] === '1') {
+        var xy = newIndex + ',' + colIndex;
         coordinates[xy] = true;
         searchAdjacentCells(newIndex, colIndex);
       }
     }
     // Search East
-    if (colIndex + 1 < width && !coordinates[(colIndex + 1) + ',' + rowIndex]) {
-      if (grid[rowIndex][colIndex + 1] === '1') {
-        var newIndex = colIndex + 1
-        var xy = newIndex + ',' + rowIndex;
+    newIndex = colIndex + 1
+    if (newIndex < width && !coordinates[rowIndex + ',' + newIndex]) {
+      if (grid[rowIndex][newIndex] === '1') {
+        var xy = rowIndex + ',' + newIndex;
         coordinates[xy] = true;
         searchAdjacentCells(rowIndex, newIndex);
       }
     }
 
     // Search South
-    if (rowIndex + 1 < height && !coordinates[colIndex + ',' + (rowIndex + 1)]) {
-      if (grid[rowIndex + 1][colIndex] === '1') {
-        var newIndex = rowIndex + 1
-        var xy = colIndex + ',' + newIndex;
+    newIndex = rowIndex + 1
+    if (newIndex < height && !coordinates[newIndex + ',' + colIndex]) {
+      if (grid[newIndex][colIndex] === '1') {
+        var xy = newIndex + ',' + colIndex;
         coordinates[xy] = true;
         searchAdjacentCells(newIndex, colIndex);
       }
     }
 
     // Search West
-    if (colIndex - 1 > 0 && !coordinates[(colIndex - 1) + ',' + rowIndex]) {
-      if (grid[rowIndex][colIndex - 1] === '1') {
-        var newIndex = colIndex - 1
-        var xy = newIndex + ',' + rowIndex;
+    newIndex = colIndex - 1;
+    if (newIndex >= 0 && !coordinates[rowIndex + ',' + newIndex]) {
+      if (grid[rowIndex][newIndex] === '1') {
+        var xy = rowIndex + ',' + newIndex;
         coordinates[xy] = true;
         searchAdjacentCells(rowIndex, newIndex);
       }
@@ -58,12 +58,11 @@ var numIslands = function(grid) {
 
   for (var rowIndex = 0; rowIndex < height; rowIndex++) {
     for (var colIndex = 0; colIndex < width; colIndex++) {
-      if (grid[rowIndex][colIndex] === '1' && !coordinates[colIndex + ',' + rowIndex]) {
+      if (grid[rowIndex][colIndex] === '1' && !coordinates[rowIndex + ',' + colIndex]) {
         islandCount++;
-
-        searchAdjacentCells(rowIndex, colIndex);
-        var xy = colIndex + ',' + rowIndex;
+        var xy = rowIndex + ',' + colIndex;
         coordinates[xy] = true;
+        searchAdjacentCells(rowIndex, colIndex);
       }
     }
   }
@@ -89,3 +88,11 @@ grid = [
 ]
 result = numIslands(grid);
 console.assert(result === 3, 'Expected 3 islands');
+
+grid = [
+  ["1","1","1"],
+  ["0","1","0"],
+  ["1","1","1"]
+]
+result = numIslands(grid);
+console.assert(result === 1, 'Expected 1 island');
