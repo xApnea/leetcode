@@ -22,8 +22,8 @@ var findSubstrings = function (str, k) {
     var charsUsed = {};
     var flag = true;
     var window = [];
-    for (var j = i; j < sum; j++) {
 
+    for (var j = i; j < sum; j++) {
       if (!charsUsed[str[j]]) {
         window.push(str[j]);
         charsUsed[str[j]] = true;
