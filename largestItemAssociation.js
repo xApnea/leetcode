@@ -53,11 +53,29 @@ var Node = function(value, children) {
   this.children = children || [];
 }
 
-var largestItemAssociation = function(itemAssociation) {
+var largestItemAssociation = function(graph) {
+  var largestList = [];
 
+  for (key in graph.nodes) {
+    var rootNode = graph.nodes[key]
+    var currentList = [];
+    var q = [];
+
+    q.push(rootNode);
+    while (q.length > 0) {
+      var node = q.pop();
+      currentList.push(node.value);
+      for (var i = 0; i < node.children.length; i++) {
+        q.unshift(node.children[i]);
+      }
+      if (currentList.length > largestList.length) largestList = currentList;
+    }
+  }
+  return largestList;
 }
 
-var itemAssociation = [new PairString('item1', 'item2'), new PairString('item1', 'item5'),new PairString('item3', 'item4'), new PairString('item4', 'item5')];
+var itemAssociation = [new PairString('item1', 'item2'), new PairString('item3', 'item4'), new PairString('item4', 'item5')];
 
 var graph = createGraphFromItemAssociation(itemAssociation);
-var result = graph.nodes['item1'];
+var result = largestItemAssociation(graph);
+console.log(result);
