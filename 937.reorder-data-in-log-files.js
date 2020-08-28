@@ -15,10 +15,10 @@ var reorderLogFiles = function(logs) {
 
   // iterate through the logs
   for (log of logs) {
-    const prefix = log.split(' ', 1);
-    const id = prefix[0].slice(0, 3);
-    if (id === 'dig') digitLogs.push(log);
-    else if (id === 'let') letterLogs.push(log);
+    const prefix = log.split(' ', 2);
+    const first = prefix[1].slice(0, 1);
+    if (first <= 9) digitLogs.push(log);
+    else letterLogs.push(log);
   }
 
   var sortedLetterLogs = letterLogs.sort((a, b) => {
@@ -44,6 +44,8 @@ var reorderLogFiles = function(logs) {
 
 var logs = ["dig1 8 1 5 1","let1 art can","dig2 3 6","let2 own kit dig","let3 art zero"];
 var results = reorderLogFiles(logs);
+logs = ["a1 9 2 3 1","g1 act car","zo4 4 7","ab1 off key dog","a8 act zoo"];
+results = reorderLogFiles(logs);
 
 
 // @lc code=end
