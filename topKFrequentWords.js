@@ -14,7 +14,26 @@
  * @return {string[]}
  */
 var topKFrequent = function(words, k) {
+  var memo = {};
+  for (var i = 0; i < words.length; i++) {
+    const word = words[i];
+    if (memo[word]) {
+      memo[word]++;
+    }
+    else {
+      memo[word] = 1;
+    };
+  }
 
+  var results = Object.keys(memo).sort((a, b) => {
+    if (memo[a] === memo[b]) {
+      return a.localeCompare(b);
+    } else {
+      return memo[b] - memo[a];
+    }
+  });
+
+  return results.slice(0, k);
 };
 
 var input = ["i", "love", "leetcode", "i", "love", "coding"];
