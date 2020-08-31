@@ -18,28 +18,16 @@ function TreeNode(val, left, right) {
  * @return {TreeNode}
  */
 var insertIntoBST = function(root, val) {
-  if (!root) return new TreeNode(val)
-
-  var recursiveSearchInsert = function(node, val) {
-    if (val < node.val) {
-      if (!node.left) {
-        node.left = new TreeNode(val);
-        return;
-      } else {
-        recursiveSearchInsert(node.left, val);
-      }
-    } else if (val > node.val) {
-      if (!node.right) {
-        node.right = new TreeNode(val);
-        return;
-      } else {
-        recursiveSearchInsert(node.right, val);
-      }
+    if (!root) {
+      return new TreeNode(val);
     }
-    return;
-  }
-  recursiveSearchInsert(root, val);
-  return root;
+    if (val < root.val) {
+      root.left = insertIntoBST(root.left, val);
+    }
+    if (val > root.val) {
+      root.right = insertIntoBST(root.right, val);
+    }
+    return root;
 };
 // @lc code=end
 
