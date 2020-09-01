@@ -16,73 +16,40 @@ function ListNode(val, next) {
  * @return {ListNode}
  */
 var mergeTwoLists = function(l1, l2) {
+  var result = new ListNode();
+  var head = result;
 
-  if (!l1 || !l2) {
-    if (!l1 && !l2) {
-      return null;
-    } else if (!l1) {
-      return l2;
+
+  while (l1 && l2) {
+    if (l1.val <= l2.val) {
+      result.next = l1;
+      l1 = l1.next;
     } else {
-      return l1;
+      result.next = l2;
+      l2 = l2.next;
     }
+    result = result.next;
   }
 
-  var trailingNode;
-  var node1;
-  var node2;
-  var returnList;
-
-  if (l1.val > l2.val) {
-    trailingNode = l2;
-    node1 = l2;
-    node2 = l1;
-    returnList = l2;
-  } else {
-    trailingNode = l1;
-    node1 = l1;
-    node2 = l2;
-    returnList = l1;
+  if (!l1) {
+    result.next = l2;
+  } else if (!l2) {
+    result.next = l1;
   }
 
-  while (node2) {
-    if (node2.val <= node1.val) {
-      if (trailingNode === node1) {
-        node1 = node1.next;
-        var temp = new ListNode(node2.val);
-        trailingNode.next = temp;
-        temp.next = node1;
-        trailingNode = trailingNode.next;
-
-      } else {
-        var temp = new ListNode(node2.val);
-        trailingNode.next = temp;
-        temp.next = node1;
-        trailingNode = temp;
-      }
-      node2 = node2.next;
-    } else {
-      if (node1.next) {
-        trailingNode = node1;
-        node1 = node1.next;
-      } else {
-        // if at the end of the list, just add it to the end
-        node1.next = node2;
-        break;
-      }
-    }
-  }
-  return returnList;
+  return head.next;
 };
+
 // @lc code=end
 
-var list1 = new ListNode(1, new ListNode(2, new ListNode(4)));
-var list2 = new ListNode(1, new ListNode(3, new ListNode(4)));
+// var list1 = new ListNode(1, new ListNode(2, new ListNode(4)));
+// var list2 = new ListNode(1, new ListNode(3, new ListNode(4)));
 
-var result = mergeTwoLists(list1, list2);
-console.log(result);
+// var result = mergeTwoLists(list1, list2);
+// console.log(result);
 
-list1 = new ListNode(2);
-list2 = new ListNode(1);
+// list1 = new ListNode(2);
+// list2 = new ListNode(1);
 
-result = mergeTwoLists(list1, list2);
-console.log(result);
+// result = mergeTwoLists(list1, list2);
+// console.log(result);
