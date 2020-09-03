@@ -11,6 +11,12 @@
  * @return {boolean}
  */
 var searchMatrix = function(matrix, target) {
+  const rowLength = matrix[0].length;
+  const colLength = matrix.length;
+
+  // If target is larger than the biggest element, return false immediately
+  if (matrix[colLength][rowLength] > target) return false;
+
 
 };
 // @lc code=end
