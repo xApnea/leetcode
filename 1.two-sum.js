@@ -11,7 +11,15 @@
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-
+  let hash = {};
+  for (var i = 0; i < nums.length; i++) {
+    let difference = target - nums[i];
+    if (hash[difference] !== undefined) {
+      return [hash[difference], i];
+    } else {
+      hash[nums[i]] = i;
+    }
+  }
 };
 // @lc code=end
 
