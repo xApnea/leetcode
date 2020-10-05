@@ -10,25 +10,30 @@
  * @return {number}
  */
 var missingNumber = function(nums) {
-    nums.sort((a, b) => {
-      return a - b;
-    })
+  let numsHash = {};
+  nums.forEach((num) => {
+    numsHash[num] = true;
+  })
 
-    if (nums[0] !== 0) {
-      return 0;
-    }
+  if (!numsHash[0]) {
+    return 0;
+  }
 
-    if (nums[nums.length - 1] !== nums.length) {
-      return nums.length;
-    }
+  if (!numsHash[nums.length]) {
+    return nums.length;
+  }
 
-    for (let i = 0; i < nums.length; i++) {
-      if (nums[i] + 1 !== nums[i + 1]) {
-        return nums[i] + 1;
-      }
+  for (num in numsHash) {
+    num = parseInt(num);
+    if (!numsHash[num + 1]) {
+      return parseInt(num) + 1;
     }
+  }
 };
 // @lc code=end
 
-let result = missingNumber([4,0,3,1,5,2,6]);
+let result = missingNumber([4,5,3,1,0,2,6]);
+// console.log(result);
+
+result = missingNumber([3,0,1]);
 console.log(result);
